@@ -1,5 +1,5 @@
 
-# react-native-react-native-nxlauth
+# react-native-nxlauth
 
 ## Getting started
 
