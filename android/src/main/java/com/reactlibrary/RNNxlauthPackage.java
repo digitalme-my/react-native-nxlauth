@@ -1,19 +1,23 @@
 
-package com.reactlibrary;
+package my.com.nexlife.nxlauth;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.ArrayList;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
-public class RNReactNativeNxlauthPackage implements ReactPackage {
+
+public class RNNxlauthPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-      return Arrays.<NativeModule>asList(new RNReactNativeNxlauthModule(reactContext));
+      // return Arrays.<NativeModule>asList(new RNNxlauthModule(reactContext));
+      List<NativeModule> modules = new ArrayList<>();
+      modules.add(new RNNxlauthModule(reactContext));
+      return modules;
     }
 
     // Deprecated from RN 0.47
@@ -23,6 +27,6 @@ public class RNReactNativeNxlauthPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-      return Collections.emptyList();
+      return Arrays.<ViewManager>asList();
     }
 }

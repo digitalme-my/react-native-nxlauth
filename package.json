@@ -1,20 +1,21 @@
-
 {
-  "name": "react-native-react-native-nxlauth",
-  "version": "1.0.0",
-  "description": "",
+  "name": "react-native-nxlauth",
+  "version": "0.0.1",
+  "description": "A react-native bridging for NXL Auth SDKs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "nxlauth",
+    "android",
+    "ios",
+    "appauth"
   ],
   "author": "",
   "license": "",
   "peerDependencies": {
-    "react-native": "^0.41.2",
-    "react-native-windows": "0.41.0-rc.1"
-
+    "react-native": ">=0.41.2"
   }
 }
