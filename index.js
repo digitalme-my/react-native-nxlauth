@@ -1,6 +1,6 @@
+// Implement this for bridging
 
-import { NativeModules } from 'react-native';
+"use strict";
 
-const { RNReactNativeNxlauth } = NativeModules;
-
-export default RNReactNativeNxlauth;
+import { NativeModules } from "react-native";
+module.exports = NativeModules.RNNxlauthModule;
