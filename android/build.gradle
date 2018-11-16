@@ -17,12 +17,11 @@ android {
 
 repositories {
     mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
-    compile 'net.openid:appauth:0.7.0'
+    // compile project(':nxlauth-sdk')
+    implementation fileTree(dir: "nxlauth-sdk", include: ["*.aar"])
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'net.openid:appauth:0.7.1'
 }

@@ -1,6 +1,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="my.com.nexlife.nxlauth">
-
+          xmlns:tools="http://schemas.android.com/tools"
+          package="my.com.nexlife.rnnxlauth">
+  <uses-sdk tools:overrideLibrary="my.com.nexlife.nxlauth"/>
 </manifest>
   

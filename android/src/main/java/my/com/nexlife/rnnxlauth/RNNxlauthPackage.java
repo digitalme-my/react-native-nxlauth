@@ -1,5 +1,5 @@
 
-package my.com.nexlife.nxlauth;
+package my.com.nexlife.rnnxlauth;
 
 import java.util.Arrays;
 import java.util.Collections;
