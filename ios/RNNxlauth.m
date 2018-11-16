@@ -1,7 +1,7 @@
 
-#import "RNReactNativeNxlauth.h"
+#import "RNNxlauth.h"
 
-@implementation RNReactNativeNxlauth
+@implementation RNNxlauth
 
 - (dispatch_queue_t)methodQueue
 {
