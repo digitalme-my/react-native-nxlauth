@@ -5,7 +5,7 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface RNReactNativeNxlauth : NSObject <RCTBridgeModule>
+@interface RNNxlauth : NSObject <RCTBridgeModule>
 
 @end
   
