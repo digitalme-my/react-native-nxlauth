@@ -24,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNxlauth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNxlauth.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		96CFDFB521A0714F0064E508 /* RNNxlauthAuthorizationFlowManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNxlauthAuthorizationFlowManager.h; sourceTree = "<group>"; };
+		96CFDFB621A0718D0064E508 /* RNNxlauthAuthorizationFlowManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNxlauthAuthorizationFlowManagerDelegate.h; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNNxlauth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNxlauth.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNNxlauth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNxlauth.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +52,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				96CFDFB621A0718D0064E508 /* RNNxlauthAuthorizationFlowManagerDelegate.h */,
+				96CFDFB521A0714F0064E508 /* RNNxlauthAuthorizationFlowManager.h */,
 				B3E7B5881CC2AC0600A0062D /* RNNxlauth.h */,
 				B3E7B5891CC2AC0600A0062D /* RNNxlauth.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -204,7 +208,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
+					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
