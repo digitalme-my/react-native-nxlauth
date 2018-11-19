@@ -23,16 +23,15 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
   private final String mTag = "RNNXLAUTH";
   private final ReactApplicationContext reactContext;
   private AuthManager mAuthManager;
-  // private boolean mAuthenticated;
   private final String mPleaseConfigure = "Please perform authentication first";
 
   private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+      Log.d(RNNxlauthModule.this.mTag, "onActivityResult function");
       if (requestCode == SDKMessages.RC_AUTH) {
         boolean status = RNNxlauthModule.this.mAuthManager.performTokenRequestSuccessful(intent);
         Log.d(RNNxlauthModule.this.mTag, "Status: " + status);
-        // RNNxlauthModule.this.mAuthenticated = status;
       }
     }
   };
@@ -59,8 +58,11 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void buildAuthConfig(String clientId) {
-    this.mAuthManager = new AuthManager.Builder(clientId, this.reactContext).setTag(this.mTag)
-        .setScope(SDKScopes.OPEN_ID, SDKScopes.OFFLINE).build();
+    Log.d(this.mTag, "Building Auth Config");
+    this.mAuthManager = new AuthManager.Builder(clientId, this.reactContext)
+        .setTag(this.mTag)
+        .setScope(SDKScopes.OPEN_ID, SDKScopes.OFFLINE)
+        .build();
   }
 
   @ReactMethod
@@ -79,6 +81,7 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
           callback.invoke(result);
         } else {
           callback.invoke(ex.toString());
+          ex.printStackTrace();
         }
       }
     });
@@ -93,6 +96,7 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
           callback.invoke(result);
         } else {
           callback.invoke(ex.toString());
+          ex.printStackTrace();
         }
       }
     });
