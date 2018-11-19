@@ -1,5 +1,6 @@
 #import "RNNxlauth.h"
 #import <AppAuth/AppAuth.h>
+#import <NXLAuth/NXLAuth.h>
 #import <React/RCTLog.h>
 #import <React/RCTConvert.h>
 #import "RNNxlauthAuthorizationFlowManager.h"
@@ -15,12 +16,54 @@
     return [_currentSession resumeExternalUserAgentFlowWithURL:url];
 }
 
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
+//- (dispatch_queue_t)methodQueue
+//{
+//    return dispatch_get_main_queue();
+//}
 
 RCT_EXPORT_MODULE()
+
+RCT_REMAP_METHOD(authorizeRequest,
+                 scopes: (NSArray *) scopes
+                 resolve: (RCTPromiseResolveBlock) resolve
+                 reject: (RCTPromiseRejectBlock)  reject)
+{
+    // if we have manually provided configuration, we can use it and skip the OIDC well-known discovery endpoint call
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        // do work here
+    //    });
+    NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
+    NSArray *scopess = @[ ScopeOpenID, ScopeOffline];
+    NSLog(@"here 1");
+    
+    [nexMng authRequest:scopess :^(OIDAuthorizationRequest *request){
+        NSLog(@"here 1.5");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager> appDelegate = (id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager>)[UIApplication sharedApplication].delegate;
+            if (![[appDelegate class] conformsToProtocol:@protocol(RNNxlauthAuthorizationFlowManager)]) {
+                [NSException raise:@"RNAppAuth Missing protocol conformance"
+                            format:@"%@ does not conform to RNAppAuthAuthorizationFlowManager", appDelegate];
+            }
+            appDelegate.authorizationFlowManagerDelegate = self;
+            
+            _currentSession = [nexMng authStateByPresentingAuthorizationRequest:request presentingViewController:appDelegate.window.rootViewController :^(OIDAuthState * _Nonnull authState) {
+                NSLog(@"[Client] authState: %@", authState);
+                NSLog(@"[Client] authorizationCode: %@", authState.lastAuthorizationResponse.authorizationCode);
+                NSLog(@"[Client] accessToken: %@", authState.lastTokenResponse.accessToken);
+                NSLog(@"[Client] idToken: %@", authState.lastTokenResponse.idToken);
+                NSLog(@"[Client] refreshToken: %@", authState.lastTokenResponse.refreshToken);
+                
+                if (authState) {
+                    resolve([self formatResponse:authState.lastTokenResponse]);
+                } else {
+                    //                    reject(@"RNAppAuth Error", [error localizedDescription], error);
+                    NSLog(@"error");
+                }
+            }];
+        });
+    }];
+    
+}
 
 RCT_REMAP_METHOD(authorize,
                  issuer: (NSString *) issuer

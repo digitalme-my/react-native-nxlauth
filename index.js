@@ -53,6 +53,21 @@ export const authorize = ({
   return RNNxlauth.authorize(...nativeMethodArguments);
 };
 
+export const authorizeRequest = ({
+  scopes,
+  dangerouslyAllowInsecureHttpRequests = false,
+}) => {
+ 
+  const nativeMethodArguments = [
+    scopes
+  ];
+  if (Platform.OS === 'android') {
+    nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
+  }
+
+  return RNNxlauth.authorizeRequest(...nativeMethodArguments);
+};
+
 export const refresh = (
   {
     issuer,
