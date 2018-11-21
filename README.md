@@ -158,6 +158,11 @@ instruction). Thus, implement the following method from `UIApplicationDelegate` 
  return [self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url];
 }
 ```
+
+## Example App
+[CLICK HERE](https://github.com/nexlife/react-native-nxlauth/tree/master/Example)
+
+
 ## Usage
 ```javascript
 import RNReactNativeNxlauth from 'react-native-react-native-nxlauth';
