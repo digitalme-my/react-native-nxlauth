@@ -54,7 +54,7 @@ are not distributed as part of the bridge.
 
 1. **CocoaPods**
 
-1. With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html),
+   With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html),
    add the following line to your `Podfile`:
 
     `pod 'AppAuth', :git => 'https://github.com/nexlife/AppAuth-iOS.git'`
@@ -64,16 +64,18 @@ are not distributed as part of the bridge.
     `pod install`.
 
 
-### Download NXLAuth Framework
+2. **Download NXLAuth Framework**
 
-2. Download the NXLAuth Framework file 👉 [HERE](https://github.com/nexlife/NXLAuth-iOS/archive/master.zip) 👈
+   Download the NXLAuth Framework file 👉 [HERE](https://github.com/nexlife/NXLAuth-iOS/archive/master.zip) 👈
    
-   - Unzip and move the framework into your project.
+   - Unzip and move the NXLAuth.framework into your project.
+    <img src="/images/drag_framework.gif" width="100%" height="100%" />
    
    - Add NXLAuth.framework into Embedded Binaries.
+   <img src="/images/link_binary.gif" width="100%" height="100%" />
    
 
-3. Create a NXLAuthConfig.plist in your project.
+3. **Create a NXLAuthConfig.plist in your project.**
    right click from your project --> New File --> Resource --> choose Property List.
    add the following line to your NXLAuthConfig.plist.
 
@@ -153,17 +155,6 @@ instruction). Thus, implement the following method from `UIApplicationDelegate` 
  return [self.authorizationFlowManagerDelegate resumeExternalUserAgentFlowWithURL:url];
 }
 ```
-
-
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNReactNativeNxlauth.sln` in `node_modules/react-native-react-native-nxlauth/windows/RNReactNativeNxlauth.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using React.Native.Nxlauth.RNReactNativeNxlauth;` to the usings at the top of the file
-  - Add `new RNReactNativeNxlauthPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
 ## Usage
 ```javascript
 import RNReactNativeNxlauth from 'react-native-react-native-nxlauth';
