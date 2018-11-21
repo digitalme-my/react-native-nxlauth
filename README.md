@@ -3,11 +3,11 @@
 
 ## Getting started
 
-`$ npm install react-native-react-native-nxlauth --save`
+`$ npm install react-native-nxlauth --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-react-native-nxlauth`
+`$ react-native link react-native-nxlauth`
 
 **Then follow the [Setup](#setup) steps to configure the native iOS and Android projects.**
 
