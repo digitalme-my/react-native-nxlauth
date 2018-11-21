@@ -1,19 +1,35 @@
 #import "RNNxlauth.h"
-#import <AppAuth/AppAuth.h>
+//#import <AppAuth/AppAuth.h>
 #import <NXLAuth/NXLAuth.h>
 #import <React/RCTLog.h>
 #import <React/RCTConvert.h>
 #import "RNNxlauthAuthorizationFlowManager.h"
 
-@interface RNNxlauth()<RNNxlauthAuthorizationFlowManagerDelegate> {
+@interface RNNxlauth()<RNNxlauthAuthorizationFlowManagerDelegate, OIDAuthStateChangeDelegate> {
     id<OIDExternalUserAgentSession> _currentSession;
 }
 @end
+
+static NSString *const kCurrentAuthStateKey = @"currentAuthState";
 
 @implementation RNNxlauth
 
 -(BOOL)resumeExternalUserAgentFlowWithURL:(NSURL *)url {
     return [_currentSession resumeExternalUserAgentFlowWithURL:url];
+}
+
+- (void)loadAuthState {
+    // loads OIDAuthState from NSUSerDefaults
+    NSLog(@"[RN Lib] Load Current AuthState");
+    NSData *archivedAuthState =
+    [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentAuthStateKey];
+    OIDAuthState *authState = [NSKeyedUnarchiver unarchiveObjectWithData:archivedAuthState];
+    if (!authState) {
+        NSLog(@"[RN Lib] Load Previous State: %@", nil);
+    } else {
+        NSLog(@"[RN Lib] Load Previous State Success");
+    }
+    [self setAuthState:authState];
 }
 
 //- (dispatch_queue_t)methodQueue
@@ -55,6 +71,7 @@ RCT_REMAP_METHOD(authorizeRequest,
                 
                 if (authState) {
                     resolve([self formatResponse:authState.lastTokenResponse]);
+                    [self setAuthState:authState];
                 } else {
                     //                    reject(@"RNAppAuth Error", [error localizedDescription], error);
                     NSLog(@"error");
@@ -64,6 +81,71 @@ RCT_REMAP_METHOD(authorizeRequest,
     }];
     
 }
+
+RCT_REMAP_METHOD(userInfo,
+                 resolve: (RCTPromiseResolveBlock) resolve
+                 reject: (RCTPromiseRejectBlock)  reject)
+{
+    NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
+    [nexMng getUserInfo:^(NSDictionary * _Nonnull response) {
+        if (response) {
+            resolve(response);
+        } else {
+            resolve(@"Unable to retrieve User Info");
+        }
+    }];
+    
+    
+}
+
+RCT_REMAP_METHOD(freshToken, :(RCTPromiseResolveBlock) resolve :(RCTPromiseRejectBlock)  reject)
+{
+    NSString *currentAccessToken = _authState.lastTokenResponse.accessToken;
+    NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
+    [nexMng getFreshToken:^(NSString * _Nonnull accessToken, NSString * _Nonnull idToken, OIDAuthState * _Nonnull currentAuthState, NSError * _Nullable error) {
+        [self setAuthState:currentAuthState];
+        if (![currentAccessToken isEqual:accessToken]) {
+            NSLog(@"[RNLib] Token refreshed");
+            NSLog(@"Access token was refreshed automatically (%@ to %@)",
+                  currentAccessToken,
+                  accessToken);
+            
+        } else {
+            NSLog(@"[RNLib] Token still valid");
+            NSLog(@"Access token was fresh and not updated [%@]", accessToken);
+        }
+        resolve(accessToken);
+        
+    }];
+}
+
+RCT_EXPORT_METHOD(clearAuthState)
+{
+    [self setAuthState:nil];
+    NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
+    [nexMng clearAuthState];
+}
+
+RCT_REMAP_METHOD(getCurrentAuthState, state: (RCTPromiseResolveBlock) resolve
+                 error: (RCTPromiseRejectBlock)  reject)
+{
+    // loads OIDAuthState from NSUSerDefaults
+    NSLog(@"[RN Lib] Get Current AuthState");
+    NSData *archivedAuthState =
+    [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentAuthStateKey];
+    OIDAuthState *authState = [NSKeyedUnarchiver unarchiveObjectWithData:archivedAuthState];
+    //    NSLog(@">>>>authState: %@", [self formatResponse:authState.lastTokenResponse]);
+    if (!authState) {
+        NSLog(@"[RN Lib] Load Previous State: %@", nil);
+        resolve(@"");
+    } else {
+        NSLog(@"[RN Lib] Load Previous State Success");
+        NSLog(@">>>>authState: %@", [self formatResponse:authState.lastTokenResponse]);
+        resolve([self formatResponse:authState.lastTokenResponse]);
+    }
+    [self setAuthState:authState];
+}
+
 
 RCT_REMAP_METHOD(authorize,
                  issuer: (NSString *) issuer
@@ -150,6 +232,22 @@ RCT_REMAP_METHOD(refresh,
                                                             }];
     }
 } // end RCT_REMAP_METHOD(refresh,
+
+//- (void)setAuthState:(nullable OIDAuthState *)authState {
+//    NSLog(@"[Client] setAuthState");
+//    if (_authState == authState) {
+//        return;
+//    }
+//    _authState = authState;
+//    //    if (authState != nil) {
+//    //        [self performSegueWithIdentifier:@"login_success" sender:self];
+//    //    }
+//
+//    _authState.stateChangeDelegate = self;
+////
+////    [self saveState];
+////    [self updateUI];
+//}
 
 
 /*
@@ -266,6 +364,10 @@ RCT_REMAP_METHOD(refresh,
              @"refreshToken": response.refreshToken ? response.refreshToken : @"",
              @"tokenType": response.tokenType ? response.tokenType : @"",
              };
+}
+
+- (void)didChangeState:(nonnull OIDAuthState *)state {
+    NSLog(@"SSSSSSSState change");
 }
 
 @end
