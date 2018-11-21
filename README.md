@@ -108,7 +108,7 @@ are not distributed as part of the bridge.
 
 <img src="/images/configuration.gif" width="100%" height="100%" />
 
-4. **Register redirect URL scheme**
+##### Register redirect URL scheme
 
 If you intend to support iOS 10 and older, you need to define the supported redirect URL schemes in
 your `Info.plist` as follows:
