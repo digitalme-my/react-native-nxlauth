@@ -60,6 +60,40 @@ export const authorizeRequest = ({ scopes, dangerouslyAllowInsecureHttpRequests 
   return RNNxlauth.authorizeRequest(...nativeMethodArguments);
 };
 
+export const userInfo = () => {
+ 
+  // const nativeMethodArguments = [
+  //   scopes
+  // ];
+  // if (Platform.OS === 'android') {
+  //   nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
+  // }
+
+  return RNNxlauth.userInfo();
+};
+
+export const clearAuthState = () => {
+  RNNxlauth.clearAuthState();
+  console.log("Clear Auth State");
+};
+
+export const authState = () => {
+  console.log("Get Current Auth State");
+  return RNNxlauth.getCurrentAuthState();
+};
+
+export const freshToken = () => {
+ 
+  // const nativeMethodArguments = [
+  //   scopes
+  // ];
+  // if (Platform.OS === 'android') {
+  //   nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
+  // }
+
+  return RNNxlauth.freshToken();
+};
+
 export const refresh = (
   {
     issuer,
