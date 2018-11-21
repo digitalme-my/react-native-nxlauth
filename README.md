@@ -76,6 +76,7 @@ are not distributed as part of the bridge.
    
 
 3. **Create a NXLAuthConfig.plist in your project.**
+
    right click from your project --> New File --> Resource --> choose Property List.
    add the following line to your NXLAuthConfig.plist.
 
@@ -99,13 +100,15 @@ are not distributed as part of the bridge.
     </plist>
     ```
     
-#### Information You'll Need From Your idP
+##### Information You'll Need From Your idP
 
 * Issuer
 * Client ID
 * Redirect URI
 
-##### Register redirect URL scheme
+<img src="/images/configuration.gif" width="100%" height="100%" />
+
+4. **Register redirect URL scheme**
 
 If you intend to support iOS 10 and older, you need to define the supported redirect URL schemes in
 your `Info.plist` as follows:
