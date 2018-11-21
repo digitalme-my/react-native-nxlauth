@@ -131,9 +131,9 @@ your `Info.plist` as follows:
 You need to retain the auth session, in order to continue the
 authorization flow from the redirect. Follow these steps:
 
-`RNAppAuth` will call on the given app's delegate via `[UIApplication sharedApplication].delegate`.
-Furthermore, `RNAppAuth` expects the delegate instance to conform to the protocol `RNAppAuthAuthorizationFlowManager`.
-Make `AppDelegate` conform to `RNAppAuthAuthorizationFlowManager` with the following changes to `AppDelegate.h`:
+`RNNxlauth` will call on the given app's delegate via `[UIApplication sharedApplication].delegate`.
+Furthermore, `RNNxlauth` expects the delegate instance to conform to the protocol `RNNxlauthAuthorizationFlowManager`.
+Make `AppDelegate` conform to `RNNxlauthAuthorizationFlowManager` with the following changes to `AppDelegate.h`:
 
 ```diff
 + #import "RNAppAuthAuthorizationFlowManager.h"
