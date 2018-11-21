@@ -10,3 +10,5 @@ All the JS code can be found in `App.js`.
 2. Go to ios directory
 
     `pod install`
+    
+![Demo](demo.gif)
