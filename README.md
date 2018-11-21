@@ -160,7 +160,7 @@ instruction). Thus, implement the following method from `UIApplicationDelegate` 
 ```
 
 ## Example App
-[CLICK HERE](https://github.com/nexlife/react-native-nxlauth/tree/master/Example)
+ [CLICK HERE](https://github.com/nexlife/react-native-nxlauth/tree/master/Example)
 
 
 ## Usage
