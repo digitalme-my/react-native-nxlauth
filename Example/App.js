@@ -31,6 +31,7 @@ export default class App extends Component {
       accessTokenExpirationDate: '',
       refreshToken: '',
       authState: '',
+      userInfo: '',
       status: 'Not Authorise' }
   }
 
@@ -87,7 +88,8 @@ export default class App extends Component {
       } else {
         this.setState({
           status: "Not Authorise",
-          authState: currentAuthState
+          authState: currentAuthState,
+          userInfo: ''
         })
       }
     } catch (error) {
@@ -99,6 +101,9 @@ export default class App extends Component {
     console.log('inside userInfo');
     try {
       const user = await userInfo();
+      this.setState({
+        userInfo: user.sub,
+      })
       console.log(user);
     } catch (error) {
       Alert.alert('Failed to retrieve User Info', error.message);
@@ -164,6 +169,14 @@ export default class App extends Component {
 
           <Text style={{ borderWidth: 1, marginBottom: 10 }}>
             {this.state.authState.accessToken}
+          </Text>
+
+           <Text>
+            user info
+          </Text>
+
+          <Text style={{ borderWidth: 1, marginBottom: 10 }}>
+            {this.state.userInfo}
           </Text>
 
         </View>
