@@ -1,0 +1,25 @@
+PODS:
+  - AppAuth (1.0.0.beta1):
+    - AppAuth/Core (= 1.0.0.beta1)
+    - AppAuth/ExternalUserAgent (= 1.0.0.beta1)
+  - AppAuth/Core (1.0.0.beta1)
+  - AppAuth/ExternalUserAgent (1.0.0.beta1)
+
+DEPENDENCIES:
+  - AppAuth (from `https://github.com/nexlife/AppAuth-iOS.git`)
+
+EXTERNAL SOURCES:
+  AppAuth:
+    :git: https://github.com/nexlife/AppAuth-iOS.git
+
+CHECKOUT OPTIONS:
+  AppAuth:
+    :commit: 0c822671e56cedf159a6d27ccf0669b689c0f2b5
+    :git: https://github.com/nexlife/AppAuth-iOS.git
+
+SPEC CHECKSUMS:
+  AppAuth: 0ac894b773cf31b27a20bceb61218556644df883
+
+PODFILE CHECKSUM: 12be25aff97e52167c06a1761a6d4bc41f5ecec1
+
+COCOAPODS: 1.5.3
