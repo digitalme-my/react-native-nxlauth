@@ -77,7 +77,7 @@ are not distributed as part of the bridge.
 
 3. **Create a NXLAuthConfig.plist in your project.**
 
-   right click from your project --> New File --> Resource --> choose Property List.
+   Right click from your project --> New File --> Resource --> choose Property List --> named it as "NXLAuthConfig.plist"
    
    add the following line to your NXLAuthConfig.plist.
 
