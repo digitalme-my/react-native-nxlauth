@@ -136,12 +136,12 @@ Furthermore, `RNNxlauth` expects the delegate instance to conform to the protoco
 Make `AppDelegate` conform to `RNNxlauthAuthorizationFlowManager` with the following changes to `AppDelegate.h`:
 
 ```diff
-+ #import "RNAppAuthAuthorizationFlowManager.h"
++ #import "RNNxlauthAuthorizationFlowManager.h"
 
 - @interface AppDelegate : UIResponder <UIApplicationDelegate>
-+ @interface AppDelegate : UIResponder <UIApplicationDelegate, RNAppAuthAuthorizationFlowManager>
++ @interface AppDelegate : UIResponder <UIApplicationDelegate, RNNxlauthAuthorizationFlowManager>
 
-+ @property(nonatomic, weak)id<RNAppAuthAuthorizationFlowManagerDelegate>authorizationFlowManagerDelegate;
++ @property(nonatomic, weak)id<RNNxlauthAuthorizationFlowManagerDelegate>authorizationFlowManagerDelegate;
 ```
 
 The authorization response URL is returned to the app via the iOS openURL app delegate method, so
