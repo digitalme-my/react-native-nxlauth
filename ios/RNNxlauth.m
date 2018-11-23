@@ -82,7 +82,7 @@ RCT_REMAP_METHOD(authorizeRequest,
     
 }
 
-RCT_REMAP_METHOD(userInfo,
+RCT_REMAP_METHOD(getUserInfo,
                  resolve: (RCTPromiseResolveBlock) resolve
                  reject: (RCTPromiseRejectBlock)  reject)
 {
@@ -98,7 +98,7 @@ RCT_REMAP_METHOD(userInfo,
     
 }
 
-RCT_REMAP_METHOD(freshToken, :(RCTPromiseResolveBlock) resolve :(RCTPromiseRejectBlock)  reject)
+RCT_REMAP_METHOD(getFreshToken, :(RCTPromiseResolveBlock) resolve :(RCTPromiseRejectBlock)  reject)
 {
     NSString *currentAccessToken = _authState.lastTokenResponse.accessToken;
     NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
@@ -126,7 +126,7 @@ RCT_EXPORT_METHOD(clearAuthState)
     [nexMng clearAuthState];
 }
 
-RCT_REMAP_METHOD(getCurrentAuthState, state: (RCTPromiseResolveBlock) resolve
+RCT_REMAP_METHOD(getAuthState, state: (RCTPromiseResolveBlock) resolve
                  error: (RCTPromiseRejectBlock)  reject)
 {
     // loads OIDAuthState from NSUSerDefaults

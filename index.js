@@ -60,7 +60,7 @@ export const authorizeRequest = ({ scopes, dangerouslyAllowInsecureHttpRequests 
   return RNNxlauth.authorizeRequest(...nativeMethodArguments);
 };
 
-export const userInfo = () => {
+export const getUserInfo = () => {
  
   // const nativeMethodArguments = [
   //   scopes
@@ -69,7 +69,7 @@ export const userInfo = () => {
   //   nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
   // }
 
-  return RNNxlauth.userInfo();
+  return RNNxlauth.getUserInfo();
 };
 
 export const clearAuthState = () => {
@@ -77,12 +77,12 @@ export const clearAuthState = () => {
   console.log("Clear Auth State");
 };
 
-export const authState = () => {
+export const getAuthState = () => {
   console.log("Get Current Auth State");
-  return RNNxlauth.getCurrentAuthState();
+  return RNNxlauth.getAuthState();
 };
 
-export const freshToken = () => {
+export const getFreshToken = () => {
  
   // const nativeMethodArguments = [
   //   scopes
@@ -91,7 +91,7 @@ export const freshToken = () => {
   //   nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
   // }
 
-  return RNNxlauth.freshToken();
+  return RNNxlauth.getFreshToken();
 };
 
 export const refresh = (
