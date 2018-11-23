@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
-import { authorizeRequest, userInfo, freshToken, authState, clearAuthState, authorize, refresh, revoke, test } from 'react-native-nxlauth';
+import { authorizeRequest, getUserInfo, getFreshToken, getAuthState, clearAuthState, authorize, refresh, revoke, test } from 'react-native-nxlauth';
 
 
 const instructions = Platform.select({
@@ -78,7 +78,7 @@ export default class App extends Component {
   getAuthState = async () => {
     console.log('inside getAuthState');
     try {
-      const currentAuthState = await authState();
+      const currentAuthState = await getAuthState();
       console.log(currentAuthState);
       if (currentAuthState) {
         this.setState({
@@ -100,7 +100,7 @@ export default class App extends Component {
   userInfo = async () => {
     console.log('inside userInfo');
     try {
-      const user = await userInfo();
+      const user = await getUserInfo();
       this.setState({
         userInfo: user.sub,
       })
@@ -113,7 +113,7 @@ export default class App extends Component {
   freshToken = async () => {
     console.log('inside freshToken');
     try {
-      const validToken = await freshToken();
+      const validToken = await getFreshToken();
       console.log(validToken);
       this.getAuthState();
     } catch (error) {
