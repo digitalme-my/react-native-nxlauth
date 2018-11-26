@@ -55,9 +55,12 @@ export const authorizeRequest = ({ scopes, dangerouslyAllowInsecureHttpRequests 
   const nativeMethodArguments = [scopes];
   if (Platform.OS === "android") {
     nativeMethodArguments.push(dangerouslyAllowInsecureHttpRequests);
+    return RNNxlauth.authorizeRequest();
   }
 
-  return RNNxlauth.authorizeRequest(...nativeMethodArguments);
+  if (Platform.OS === "ios") {
+    return RNNxlauth.authorizeRequest(...nativeMethodArguments);
+  }
 };
 
 export const getUserInfo = () => {
@@ -165,6 +168,9 @@ export const revoke = async ({ clientId, issuer, serviceConfiguration }, { token
   });
 };
 
-if (Platform.OS === "android") {
-  module.exports = NativeModules.RNNxlauthModule;
-}
+export const testFunction = message => {
+  RNNxlauth.testFunction(message);
+};
+// if (Platform.OS === "android") {
+//   module.exports = NativeModules.RNNxlauthModule;
+// }
