@@ -57,12 +57,12 @@ RCT_REMAP_METHOD(authorizeRequest,
         dispatch_async(dispatch_get_main_queue(), ^{
             id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager> appDelegate = (id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager>)[UIApplication sharedApplication].delegate;
             if (![[appDelegate class] conformsToProtocol:@protocol(RNNxlauthAuthorizationFlowManager)]) {
-                [NSException raise:@"RNAppAuth Missing protocol conformance"
-                            format:@"%@ does not conform to RNAppAuthAuthorizationFlowManager", appDelegate];
+                [NSException raise:@"RNNxlauth Missing protocol conformance"
+                            format:@"%@ does not conform to RNNxlauthAuthorizationFlowManager", appDelegate];
             }
             appDelegate.authorizationFlowManagerDelegate = self;
             
-            _currentSession = [nexMng authStateByPresentingAuthorizationRequest:request presentingViewController:appDelegate.window.rootViewController :^(OIDAuthState * _Nonnull authState) {
+            _currentSession = [nexMng authStateByPresentingAuthorizationRequest:request presentingViewController:appDelegate.window.rootViewController callback:^(OIDAuthState * _Nullable authState, NSError * _Nullable error) {
                 NSLog(@"[Client] authState: %@", authState);
                 NSLog(@"[Client] authorizationCode: %@", authState.lastAuthorizationResponse.authorizationCode);
                 NSLog(@"[Client] accessToken: %@", authState.lastTokenResponse.accessToken);
@@ -73,7 +73,7 @@ RCT_REMAP_METHOD(authorizeRequest,
                     resolve([self formatResponse:authState.lastTokenResponse]);
                     [self setAuthState:authState];
                 } else {
-                    //                    reject(@"RNAppAuth Error", [error localizedDescription], error);
+                    reject(@"RNNxlauth Error", [error localizedDescription], error);
                     NSLog(@"error");
                 }
             }];
