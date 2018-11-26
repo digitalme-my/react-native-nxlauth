@@ -22,7 +22,13 @@ import my.com.nexlife.nxlauth.AuthManager.NXLCallback;
 import my.com.nexlife.nxlauth.SDKMessages;
 import my.com.nexlife.nxlauth.SDKScopes;
 
+import net.openid.appauth.AppAuthConfiguration;
+import net.openid.appauth.AuthorizationService;
+import net.openid.appauth.AuthorizationService.TokenResponseCallback;
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationResponse;
 import net.openid.appauth.AuthState;
+import net.openid.appauth.TokenRequest;
 import net.openid.appauth.TokenResponse;
 
 import java.text.SimpleDateFormat;
@@ -39,14 +45,37 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
   private final ReactApplicationContext reactContext;
   private AuthManager mAuthManager;
   private final String mPleaseConfigure = "Please perform authentication first";
+  private Promise mPromise;
 
   private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
       Log.d(RNNxlauthModule.this.mTag, "onActivityResult function");
       if (requestCode == SDKMessages.RC_AUTH) {
-        boolean status = RNNxlauthModule.this.mAuthManager.performTokenRequestSuccessful(intent);
-        Log.d(RNNxlauthModule.this.mTag, "Status: " + status);
+        AuthorizationResponse response = AuthorizationResponse.fromIntent(intent);
+        AuthorizationException exception = AuthorizationException.fromIntent(intent);
+        if (exception != null) {
+          RNNxlauthModule.this.mPromise.reject("RNAppAuth Error", "Failed to authenticate", exception);
+          return;
+        }
+
+        final Promise authorizePromise = RNNxlauthModule.this.mPromise;
+
+        AuthorizationService authService = new AuthorizationService(RNNxlauthModule.this.reactContext);
+        TokenRequest tokenRequest = response.createTokenExchangeRequest();
+
+        AuthorizationService.TokenResponseCallback tokenResponseCallback = new AuthorizationService.TokenResponseCallback() {
+          @Override
+          public void onTokenRequestCompleted(TokenResponse resp, AuthorizationException ex) {
+            if (resp != null) {
+              WritableMap map = RNNxlauthModule.this.tokenResponseToMap(resp);
+              authorizePromise.resolve(map);
+            } else {
+              authorizePromise.reject("RNAppAuth Error", "Failed exchange token", ex);
+            }
+          }
+        };
+        authService.performTokenRequest(tokenRequest, tokenResponseCallback);
       }
     }
   };
@@ -139,13 +168,15 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void authorizeRequest() {
+  public void authorizeRequest(Promise promise) {
+    this.mPromise = promise;
     if (this.mAuthManager == null) {
       Log.d(this.mTag, "Auth Manager is null");
       this.buildAuthConfig();
       try {
         Thread.sleep(3000);
       } catch(Exception ex) {
+        mPromise.reject(ex.toString());
         Log.e(this.mTag, "Thread sleep exception: " + ex.toString());
       }
     }

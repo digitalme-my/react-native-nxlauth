@@ -64,7 +64,6 @@ export const authorizeRequest = ({ scopes, dangerouslyAllowInsecureHttpRequests 
 };
 
 export const getUserInfo = () => {
- 
   // const nativeMethodArguments = [
   //   scopes
   // ];
@@ -86,7 +85,6 @@ export const getAuthState = () => {
 };
 
 export const getFreshToken = () => {
- 
   // const nativeMethodArguments = [
   //   scopes
   // ];
