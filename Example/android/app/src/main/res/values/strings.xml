@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RNNxlauthExample</string>
+     <string name="nxlauth_client_id">0cc5ff74-9131-4b66-84e1-099c7390a910</string>
 </resources>

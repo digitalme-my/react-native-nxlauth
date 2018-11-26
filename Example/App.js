@@ -71,15 +71,14 @@ export default class App extends Component {
         status: "Authorised"
       })
     } catch (error) {
-      Alert.alert('Failed to log in', error.message);
+      console.log('Failed to log in', error.message);
     }
   };
 
   getAuthState = async () => {
-    console.log('inside getAuthState');
     try {
       const currentAuthState = await getAuthState();
-      console.log(currentAuthState);
+      console.log("Current Auth State: ", currentAuthState);
       if (currentAuthState) {
         this.setState({
           status: "Authorised",
