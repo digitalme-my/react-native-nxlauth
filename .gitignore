@@ -44,3 +44,20 @@ buck-out/
 \.buckd/
 *.keystore
       
+*.class
+
+Example/android/app/\.project
+
+Example/android/app/\.classpath
+
+Example/android/app/\.settings/org\.eclipse\.buildship\.core\.prefs
+
+Example/android/\.settings/
+
+Example/android/\.project
+
+Example/yarn\.lock
+
+\.project
+
+\.settings/
