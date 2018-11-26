@@ -10,6 +10,9 @@ import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
+import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.bridge.WritableArray;
 
 import android.widget.Toast;
 import android.content.Intent;
@@ -39,6 +42,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class RNNxlauthModule extends ReactContextBaseJavaModule {
 
   private final String mTag = "RNNXLAUTHDEBUG";
@@ -54,6 +61,9 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
       if (requestCode == SDKMessages.RC_AUTH) {
         AuthorizationResponse response = AuthorizationResponse.fromIntent(intent);
         AuthorizationException exception = AuthorizationException.fromIntent(intent);
+
+        RNNxlauthModule.this.mAuthManager.updateAfterAuthorization(response, exception);
+
         if (exception != null) {
           RNNxlauthModule.this.mPromise.reject("RNAppAuth Error", "Failed to authenticate", exception);
           return;
@@ -67,6 +77,7 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
         AuthorizationService.TokenResponseCallback tokenResponseCallback = new AuthorizationService.TokenResponseCallback() {
           @Override
           public void onTokenRequestCompleted(TokenResponse resp, AuthorizationException ex) {
+            RNNxlauthModule.this.mAuthManager.updateAfterTokenResponse(resp, ex);
             if (resp != null) {
               WritableMap map = RNNxlauthModule.this.tokenResponseToMap(resp);
               authorizePromise.resolve(map);
@@ -225,13 +236,23 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
       }
     }
     Log.d(this.mTag, "Getting via NXLCallback");
+    
     this.mAuthManager.getUserInfo(new NXLCallback() {
       @Override
       public void onComplete(String result, Exception ex) {
         Log.d(RNNxlauthModule.this.mTag, "onComplete getUserInfo");
         if (ex == null) {
+          WritableMap map = Arguments.createMap();
+
+          try {
+            JSONObject obj = new JSONObject(result);
+            map = jsonToWritableMap(obj);
+          } catch(Exception malformedJson) {
+
+          }
+
           Log.d(RNNxlauthModule.this.mTag, "onComplete resolve");
-          promise.resolve(result);
+          promise.resolve(map);
         } else {
           Log.d(RNNxlauthModule.this.mTag, "onComplete reject");
           promise.reject(ex.toString());
@@ -240,6 +261,81 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
       }
     });
   }
+
+  private WritableMap jsonToWritableMap(JSONObject jsonObject) {
+    WritableMap writableMap = new WritableNativeMap();
+
+    if (jsonObject == null) {
+      return null;
+    }
+
+    Iterator<String> iterator = jsonObject.keys();
+    if (!iterator.hasNext()) {
+        return null;
+    }
+
+    try {
+      while (iterator.hasNext()) {
+        String key = iterator.next();
+        Object value = jsonObject.get(key);
+        if (value == null) {
+          writableMap.putNull(key);
+        } else if (value instanceof Boolean) {
+          writableMap.putBoolean(key, (Boolean) value);
+        } else if (value instanceof Integer) {
+          writableMap.putInt(key, (Integer) value);
+        } else if (value instanceof Double) {
+          writableMap.putDouble(key, (Double) value);
+        } else if (value instanceof String) {
+          writableMap.putString(key, (String) value);
+        } else if (value instanceof JSONObject) {
+          writableMap.putMap(key, jsonToWritableMap((JSONObject) value));
+        } else if (value instanceof JSONArray) {
+          writableMap.putArray(key, jsonArrayToWritableArray((JSONArray) value));
+        }
+      }
+    } catch (JSONException ex){
+            // Do nothing and fail silently
+    }
+    return writableMap;
+  }
+
+  private WritableArray jsonArrayToWritableArray(JSONArray jsonArray) {
+    WritableArray writableArray = new WritableNativeArray();
+
+    try {
+      if (jsonArray == null) {
+        return null;
+      }
+
+      if (jsonArray.length() <= 0) {
+        return null;
+      }
+
+      for (int i = 0 ; i < jsonArray.length(); i++) {
+        Object value = jsonArray.get(i);
+        if (value == null) {
+          writableArray.pushNull();
+        } else if (value instanceof Boolean) {
+          writableArray.pushBoolean((Boolean) value);
+        } else if (value instanceof Integer) {
+          writableArray.pushInt((Integer) value);
+        } else if (value instanceof Double) {
+          writableArray.pushDouble((Double) value);
+        } else if (value instanceof String) {
+          writableArray.pushString((String) value);
+        } else if (value instanceof JSONObject) {
+          writableArray.pushMap(jsonToWritableMap((JSONObject) value));
+        } else if (value instanceof JSONArray) {
+          writableArray.pushArray(jsonArrayToWritableArray((JSONArray) value));
+        }
+      }
+    } catch (JSONException e) {
+        // Do nothing and fail silently
+    }
+
+    return writableArray;
+}
 
   @ReactMethod
   public void getAuthState(final Promise promise) {
