@@ -339,31 +339,25 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getAuthState(final Promise promise) {
-    // if (this.mAuthManager == null) {
-    //   Log.d(this.mTag, "AuthManager is null");
-    //   promise.reject("Error");
-    //   return;
-    // }
     Log.d(this.mTag, "Retrieving authState");
     AuthState authState = this.mAuthManager.getCurrentAuthState();
     Log.d(this.mTag, "Done retrieving authState");
     
     if (authState != null && authState.getLastTokenResponse() != null) {
-      WritableMap tokenResponse = this.tokenResponseToMap(authState.getLastTokenResponse());
+      WritableMap tokenResponseMap = this.tokenResponseToMap(authState.getLastTokenResponse());
       Log.d(this.mTag, "Authstate is not null");
-      Log.d(this.mTag, tokenResponse.toString());
-      promise.resolve(tokenResponse);
+      promise.resolve(tokenResponseMap);
     } else {
       Log.d(this.mTag, "Authstate is null");
-      promise.reject("Error");
+      promise.resolve("");
     }
-    // promise.resolve("WATEVA");
   }
 
   @ReactMethod
   public void clearAuthState() {
     if (this.mAuthManager != null) {
       this.mAuthManager.clearSharedPreferences();
+      this.mAuthManager.replace(new AuthState());
     }
   }
 }
