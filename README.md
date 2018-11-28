@@ -31,10 +31,20 @@
   	include ':react-native-react-native-nxlauth'
   	project(':react-native-react-native-nxlauth').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-react-native-nxlauth/android')
   	```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+3. Insert the following lines inside the android, defaultConfig block in `android/app/build.gradle`:
+    ```
+      manifestPlaceholders = [
+        'appAuthRedirectScheme': 'your.package.name'
+      ]
+    ```
+4. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
       compile project(':react-native-react-native-nxlauth')
   	```
+5. Insert the following lines inside main app's `android/app/src/main/res/values/strings.xml` resource file:
+    ```
+      <string name="nxlauth_client_id">YOUR_CLIENT_ID</string>
+    ```
 
 ## Setup
 
