@@ -33,9 +33,12 @@
   	```
 3. Insert the following lines inside the android, defaultConfig block in `android/app/build.gradle`:
     ```
-      manifestPlaceholders = [
-        'appAuthRedirectScheme': 'your.package.name'
-      ]
+      defaultConfig {
+      ...
+        manifestPlaceholders = [
+          'appAuthRedirectScheme': 'your.package.name'
+        ]
+      }
     ```
 4. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
