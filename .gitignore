@@ -61,3 +61,7 @@ Example/yarn\.lock
 \.project
 
 \.settings/
+
+Example/package-lock\.json
+
+yarn\.lock

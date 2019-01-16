@@ -124,6 +124,20 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
     }
   }
 
+  private boolean getDevMode() {
+    try {
+      int devModeRes = this.reactContext.getResources().getIdentifier("dev_mode", "string", this.reactContext.getPackageName());
+      String devModeStr = this.reactContext.getResources().getString(devModeRes);
+      if (devModeStr.compareToIgnoreCase("true") == 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch(Exception ex) {
+      return false;
+    }
+  }
+
   /**
    * Function to build the auth config
    */
@@ -131,8 +145,10 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
     Log.d(this.mTag, "Building Auth Config");
     String clientId = getClientId();
     Log.d(this.mTag, "Client ID: " + clientId);
+    boolean isDevMode = getDevMode();
     this.mAuthManager = new AuthManager.Builder(clientId, this.reactContext)
         .setTag(this.mTag)
+        .setDev(isDevMode)
         .setScope(SDKScopes.OPEN_ID, SDKScopes.OFFLINE)
         .build();
   }
