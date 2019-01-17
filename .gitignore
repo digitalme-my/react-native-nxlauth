@@ -61,3 +61,5 @@ Example/yarn\.lock
 \.project
 
 \.settings/
+
+yarn\.lock
