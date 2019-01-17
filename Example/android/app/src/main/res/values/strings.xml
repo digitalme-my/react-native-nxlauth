@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RNNxlauthExample</string>
-     <string name="nxlauth_client_id">0cc5ff74-9131-4b66-84e1-099c7390a910</string>
+    <string name="nxlauth_client_id">e92e6015-fa90-4671-9e08-852f3a15bc58</string>
+    <string name="base_url">https://staging-identity.nexlife.com.my</string>
 </resources>
