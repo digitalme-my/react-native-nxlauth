@@ -50,10 +50,8 @@ RCT_REMAP_METHOD(authorizeRequest,
     //    });
     NXLAppAuthManager *nexMng = [[NXLAppAuthManager alloc] init];
     NSArray *scopess = @[ ScopeOpenID, ScopeOffline];
-    NSLog(@"here 1");
     
-    [nexMng authRequest:scopess :^(OIDAuthorizationRequest *request){
-        NSLog(@"here 1.5");
+    [nexMng authRequest:scopes :^(OIDAuthorizationRequest *request){
         dispatch_async(dispatch_get_main_queue(), ^{
             id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager> appDelegate = (id<UIApplicationDelegate, RNNxlauthAuthorizationFlowManager>)[UIApplication sharedApplication].delegate;
             if (![[appDelegate class] conformsToProtocol:@protocol(RNNxlauthAuthorizationFlowManager)]) {
