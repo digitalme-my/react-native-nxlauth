@@ -63,3 +63,5 @@ Example/yarn\.lock
 \.settings/
 
 yarn\.lock
+
+Sample/
