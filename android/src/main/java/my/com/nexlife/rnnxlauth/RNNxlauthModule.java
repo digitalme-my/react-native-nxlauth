@@ -114,6 +114,16 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
     Toast.makeText(getReactApplicationContext(), message, duration).show();
   }
 
+  private String getScopes() {
+    try {
+      int clientIdRes = this.reactContext.getResources().getIdentifier("nxlauth_scopes", "string", this.reactContext.getPackageName());
+      String clientId = this.reactContext.getResources().getString(clientIdRes);
+      return clientId;
+    } catch(Exception ex) {
+      return ex.toString();
+    }
+  }
+
   private String getClientId() {
     try {
       int clientIdRes = this.reactContext.getResources().getIdentifier("nxlauth_client_id", "string", this.reactContext.getPackageName());
@@ -130,10 +140,11 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
   private void buildAuthConfig() {
     Log.d(this.mTag, "Building Auth Config");
     String clientId = getClientId();
+    String scopes = getScopes();
     Log.d(this.mTag, "Client ID: " + clientId);
     this.mAuthManager = new AuthManager.Builder(clientId, this.reactContext)
         .setTag(this.mTag)
-        .setScope(SDKScopes.OPEN_ID, SDKScopes.OFFLINE)
+        .setScope(scopes)
         .build();
   }
 
