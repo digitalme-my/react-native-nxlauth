@@ -175,7 +175,7 @@ instruction). Thus, implement the following method from `UIApplicationDelegate` 
 ## Remember
 The universal framework will run on both simulators and Devices. But still there is a problem.
 
-Need to remove unused architectures. Because Apple doesn’t allow the application with unused architectures to the App Store.
+Need to remove unused architectures before submit to Apple app store. Because Apple doesn’t allow the application with unused architectures to the App Store.
 Please make sure that you have Remove Unused Architectures Script added in your project while releasing your app to app store.
 
 ##### Remove Unused Architectures
