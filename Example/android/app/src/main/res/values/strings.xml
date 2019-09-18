@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RNNxlauthExample</string>
-    <string name="nxlauth_client_id">e92e6015-fa90-4671-9e08-852f3a15bc58</string>
-    <string name="base_url">https://staging-identity.nexlife.com.my</string>
+    <string name="nxlauth_client_id">eac11169-014d-4d46-8da8-363287798742</string>
+    <string name="base_url">https://dev-auth.digitalme.my</string>
     <string name="nxlauth_scopes">openid offline profile national_id email phone address passport</string>
 </resources>
