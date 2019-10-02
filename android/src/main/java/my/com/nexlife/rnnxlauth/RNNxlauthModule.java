@@ -208,7 +208,9 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
     // Reimplement build
     Intent authIntent = this.mAuthManager.startAuthentication();
     Activity currentActivity = getCurrentActivity();
-    currentActivity.startActivityForResult(authIntent, SDKMessages.RC_AUTH);
+    if (authIntent != null) {
+      currentActivity.startActivityForResult(authIntent, SDKMessages.RC_AUTH);
+    }
   }
 
   @ReactMethod
