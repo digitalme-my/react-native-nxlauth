@@ -211,7 +211,7 @@ public class RNNxlauthModule extends ReactContextBaseJavaModule {
     if (authIntent != null) {
       currentActivity.startActivityForResult(authIntent, SDKMessages.RC_AUTH);
     } else {
-      promise.reject("Auth intent null");
+      mPromise.reject("Auth intent null");
     }
   }
 
