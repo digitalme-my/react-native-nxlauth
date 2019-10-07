@@ -1,6 +1,6 @@
 {
   "name": "react-native-nxlauth",
-  "version": "0.0.1",
+  "version": "1.0.8",
   "description": "A react-native bridging for NXL Auth SDKs",
   "main": "index.js",
   "scripts": {
