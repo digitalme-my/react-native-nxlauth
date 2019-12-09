@@ -3,7 +3,7 @@
 
 ## Getting started
 
-`$ npm install react-native-nxlauth --save`
+`$ npm install digitalme-my/react-native-nxlauth --save`
 
 ### Mostly automatic installation
 
