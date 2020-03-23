@@ -70,7 +70,7 @@ are not distributed as part of the bridge.
    With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html),
    add the following line to your `Podfile`:
 
-    `pod 'AppAuth', :git => 'https://github.com/nexlife/AppAuth-iOS.git'`
+    `pod 'AppAuth', :git => 'https://github.com/digitalme-my/AppAuth-iOS.git'`
 
    Then run 
    
