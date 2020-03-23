@@ -61,7 +61,7 @@ To setup the iOS project, you need to perform three steps:
 
 ##### Install native dependencies
 
-This library depends on the [NXLAuth Framework](https://github.com/nexlife/NXLAuth-iOS) project. To
+This library depends on the [NXLAuth Framework](https://github.com/digitalme-my/NXLAuth-iOS) project. To
 keep the React Native library agnostic of your dependency management method, the native libraries
 are not distributed as part of the bridge.
 
