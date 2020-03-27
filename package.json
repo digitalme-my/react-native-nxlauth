@@ -1,11 +1,30 @@
 {
-  "name": "react-native-nxlauth",
-  "version": "1.0.8",
-  "description": "A react-native bridging for NXL Auth SDKs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "github:digitalme-my/react-native-nxlauth",
+  "_id": "react-native-nxlauth@1.0.8",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-native-nxlauth",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "digitalme-my/react-native-nxlauth",
+    "rawSpec": "digitalme-my/react-native-nxlauth",
+    "saveSpec": "github:digitalme-my/react-native-nxlauth",
+    "fetchSpec": null,
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "github:digitalme-my/react-native-nxlauth#4cc1b53f7952340671d7cff357e24096c32babe8",
+  "_spec": "digitalme-my/react-native-nxlauth",
+  "_where": "/Users/jasonlee/TM/RN/liveInMobile",
+  "author": "digitalme-my",
+  "homepage": "https://github.com/digitalme-my/react-native-nxlauth#readme",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A react-native bridging for NXL Auth SDKs",
   "keywords": [
     "react-native",
     "nxlauth",
@@ -13,9 +32,14 @@
     "ios",
     "appauth"
   ],
-  "author": "",
-  "license": "",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-nxlauth",
   "peerDependencies": {
     "react-native": ">=0.41.2"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.8"
 }
