@@ -71,6 +71,28 @@ are not distributed as part of the bridge.
    add the following line to your `Podfile`:
 
     `pod 'AppAuth', :git => 'https://github.com/digitalme-my/AppAuth-iOS.git'`
+    
+    for RN > 0.60
+    `def append_framework_search_path(target, path)
+  target.build_configurations.each do |config|
+      # Note that there's a space character after `$(inherited)`.
+      config.build_settings["FRAMEWORK_SEARCH_PATHS"] ||= "$(inherited) "
+      config.build_settings["FRAMEWORK_SEARCH_PATHS"] << path
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "react-native-nxlauth"
+      append_framework_search_path(target, "$(SRCROOT)/../")
+    end
+  end
+
+  installer.pods_project.build_configuration_list.build_configurations.each do |configuration|  
+    configuration.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'  
+  end 
+end
+`
 
    Then run 
    
