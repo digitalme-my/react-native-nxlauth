@@ -215,7 +215,7 @@ Make `AppDelegate` conform to `RNNxlauthAuthorizationFlowManager` with the follo
 + #import "RNNxlauthAuthorizationFlowManager.h"
 
 - @interface AppDelegate : UIResponder <UIApplicationDelegate>
-+ @interface AppDelegate : UIResponder <UIApplicationDelegate, RNNxlauthAuthorizationFlowManager>
++ @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, RNNxlauthAuthorizationFlowManager>
 
 + @property(nonatomic, weak)id<RNNxlauthAuthorizationFlowManagerDelegate>authorizationFlowManagerDelegate;
 ```
