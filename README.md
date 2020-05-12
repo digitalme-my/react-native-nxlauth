@@ -136,7 +136,9 @@ are not distributed as part of the bridge.
 
    Download the NXLAuth Framework file 👉 [HERE](https://github.com/nexlife/NXLAuth-iOS/archive/master.zip) 👈
    
-   - Unzip and move the NXLAuth.framework into your project.
+   - Unzip and copy Framework/NXLAuth.framework into your project ios folder
+   
+   - Move the NXLAuth.framework into your project.
     <img src="/images/drag_framework.gif" width="100%" height="100%" />
    
    - Add NXLAuth.framework into Embedded Binaries.
