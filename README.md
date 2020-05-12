@@ -9,14 +9,35 @@
 
 `$ react-native link react-native-nxlauth`
 
+** extra step for ANDROID automatic installation
+- Insert the following lines inside the android, **defaultConfig** block in `android/app/build.gradle`:
+    ```
+      defaultConfig {
+        ...
+        manifestPlaceholders = [
+          'appAuthRedirectScheme': 'your.package.name'
+        ]
+      }
+    ```
+- Insert the following lines inside the **dependencies** block in `android/app/build.gradle`:
+  	```
+      implementation project(':react-native-nxlauth')
+  	```
+- Insert the following lines inside main app's `android/app/src/main/res/values/strings.xml` resource file:
+    ```
+      <string name="nxlauth_client_id">YOUR_CLIENT_ID</string>
+      <string name="nxlauth_scopes">YOUR_SCOPES</string>
+      <string name="base_url">YOUR_ISSUER</string>
+    
+    ```
+
+
 **Then follow the [Setup](#setup) steps to configure the native iOS and Android projects.**
 
 ### Manual installation
 
 
 #### iOS
-
-for RN < 0.60
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 2. Go to `node_modules` ➜ `react-native-react-native-nxlauth` and add `RNReactNativeNxlauth.xcodeproj`
