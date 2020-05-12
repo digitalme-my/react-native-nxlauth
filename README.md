@@ -5,6 +5,8 @@
 
 `$ npm install digitalme-my/react-native-nxlauth --save`
 
+`$ yarn add digitalme-my/react-native-nxlauth`
+
 ### Mostly automatic installation
 
 `$ react-native link react-native-nxlauth`
