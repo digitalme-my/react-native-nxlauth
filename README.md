@@ -42,11 +42,14 @@
     ```
 4. Insert the following lines inside the **dependencies** block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-nxlauth')
+      implementation project(':react-native-nxlauth')
   	```
 5. Insert the following lines inside main app's `android/app/src/main/res/values/strings.xml` resource file:
     ```
       <string name="nxlauth_client_id">YOUR_CLIENT_ID</string>
+      <string name="nxlauth_scopes">YOUR_SCOPES</string>
+      <string name="base_url">YOUR_ISSUER</string>
+    
     ```
 
 ## Setup
@@ -72,27 +75,30 @@ are not distributed as part of the bridge.
 
     `pod 'AppAuth', :git => 'https://github.com/digitalme-my/AppAuth-iOS.git'`
     
-    for RN > 0.60
-    `def append_framework_search_path(target, path)
-  target.build_configurations.each do |config|
+    for RN > 0.60, add below into your pod file
+    
+    ```
+    def append_framework_search_path(target, path)
+     target.build_configurations.each do |config|
       # Note that there's a space character after `$(inherited)`.
       config.build_settings["FRAMEWORK_SEARCH_PATHS"] ||= "$(inherited) "
       config.build_settings["FRAMEWORK_SEARCH_PATHS"] << path
-  end
-end
+     end
+   end
 
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == "react-native-nxlauth"
-      append_framework_search_path(target, "$(SRCROOT)/../")
-    end
-  end
+   post_install do |installer|
+     installer.pods_project.targets.each do |target|
+       if target.name == "react-native-nxlauth"
+         append_framework_search_path(target, "$(SRCROOT)/../")
+       end
+     end
 
-  installer.pods_project.build_configuration_list.build_configurations.each do |configuration|  
-    configuration.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'  
-  end 
-end
-`
+     installer.pods_project.build_configuration_list.build_configurations.each do |configuration|  
+       configuration.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'  
+     end 
+   end
+    ```
+
 
    Then run 
    
