@@ -16,6 +16,8 @@
 
 #### iOS
 
+for RN < 0.60
+
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 2. Go to `node_modules` ➜ `react-native-react-native-nxlauth` and add `RNReactNativeNxlauth.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNReactNativeNxlauth.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
